@@ -1,20 +1,41 @@
-BEGIN { require 5.010 }
 
 use strict;
 use warnings;
 
-use Module::Build;
+use Module::Build 0.3601;
 
-my $builder = Module::Build->new(
-    module_name         => 'Modern::Perl',
-    license             => 'perl',
-    dist_author         => 'chromatic <chromatic@wgz.org>',
-    dist_version_from   => 'lib/Modern/Perl.pm',
-    build_requires => {
-        'Test::Simple'     => 0.80,
-        'perl'             => 5.010,
-    },
-    add_to_cleanup      => [ 'Modern-Perl-*' ],
+
+my %module_build_args = (
+  "build_requires" => {
+    "Module::Build" => "0.3601",
+    "Test::More" => "0.98"
+  },
+  "configure_requires" => {
+    "ExtUtils::MakeMaker" => "6.30",
+    "Module::Build" => "0.3601"
+  },
+  "dist_abstract" => "enable all of the features of Modern Perl with one import",
+  "dist_author" => [
+    "chromatic"
+  ],
+  "dist_name" => "Modern-Perl",
+  "dist_version" => "1.20120105",
+  "license" => "perl",
+  "module_name" => "Modern::Perl",
+  "recommends" => {},
+  "recursive_test_files" => 1,
+  "requires" => {
+    "autodie" => 0,
+    "feature" => 0,
+    "mro" => 0,
+    "perl" => "5.010",
+    "strict" => 0,
+    "warnings" => 0
+  },
+  "script_files" => []
 );
 
-$builder->create_build_script();
+
+my $build = Module::Build->new(%module_build_args);
+
+$build->create_build_script;
