@@ -8,4 +8,5 @@ README
 dist.ini
 lib/Modern/Perl.pm
 t/base.t
+t/unimport.t
 t/year_imports.t

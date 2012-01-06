@@ -19,13 +19,15 @@ my %module_build_args = (
     "chromatic"
   ],
   "dist_name" => "Modern-Perl",
-  "dist_version" => "1.20120105",
+  "dist_version" => "1.20120106",
   "license" => "perl",
   "module_name" => "Modern::Perl",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
-    "autodie" => 0,
+    "IO::File" => 0,
+    "IO::Handle" => 0,
+    "autodie" => "2.10",
     "feature" => 0,
     "mro" => 0,
     "perl" => "5.010",

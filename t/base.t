@@ -4,7 +4,13 @@ use Test::More 0.98;
 
 BEGIN
 {
+    local $INC{'IO/File.pm'};
+    local $INC{'IO/Handle.pm'};
+
     use_ok( 'Modern::Perl' ) or exit;
+    ok exists $INC{'IO/File.pm'},   'M::P should load IO::File';
+    ok exists $INC{'IO/Handle.pm'}, 'M::P should load IO::Handle';
+
     Modern::Perl->import();
 }
 
@@ -46,5 +52,13 @@ package main;
 
 is_deeply( mro::get_linear_isa( 'D' ), [qw( D B C A )], 'mro should use C3' );
 
-ok exists $INC{'autodie.pm'}, '... and should require autodie';
+if ($] > 5.011003)
+{
+    eval q|
+    use Modern::Perl;
+    ok exists $^H{feature_unicode},
+        '... and should unilaterally enable unicode_strings, when available';
+    |;
+}
+
 done_testing;

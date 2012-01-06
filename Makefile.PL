@@ -24,13 +24,15 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Modern::Perl",
   "PREREQ_PM" => {
-    "autodie" => 0,
+    "IO::File" => 0,
+    "IO::Handle" => 0,
+    "autodie" => "2.10",
     "feature" => 0,
     "mro" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.20120105",
+  "VERSION" => "1.20120106",
   "test" => {
     "TESTS" => "t/*.t"
   }

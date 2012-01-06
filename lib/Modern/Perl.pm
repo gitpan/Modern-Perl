@@ -1,6 +1,6 @@
 package Modern::Perl;
 {
-  $Modern::Perl::VERSION = '1.20120105';
+  $Modern::Perl::VERSION = '1.20120106';
 }
 # ABSTRACT: enable all of the features of Modern Perl with one import
 
@@ -9,9 +9,12 @@ use 5.010_000;
 use strict;
 use warnings;
 
-use autodie ();
 use mro     ();
 use feature ();
+
+# enable methods on filehandles; unnecessary when 5.14 autoloads them
+use IO::File   ();
+use IO::Handle ();
 
 sub import
 {
@@ -22,6 +25,13 @@ sub import
     strict->import();
     feature->import( $feature_tag );
     mro::set_mro( scalar caller(), 'c3' );
+}
+
+sub unimport
+{
+    warnings->unimport;
+    strict->unimport;
+    feature->unimport;
 }
 
 my %dates =
@@ -35,7 +45,13 @@ my %dates =
 sub validate_date
 {
     my $date = shift;
-    return ':5.10' unless $date;
+
+    # always enable unicode_strings when available
+    unless ($date)
+    {
+        return ':5.12' if $] > 5.011003;
+        return ':5.10';
+    }
 
     my $year = substr $date, 0, 4;
     return $dates{$year} if exists $dates{$year};
@@ -55,7 +71,7 @@ Modern::Perl - enable all of the features of Modern Perl with one import
 
 =head1 VERSION
 
-version 1.20120105
+version 1.20120106
 
 =head1 SYNOPSIS
 
@@ -65,10 +81,16 @@ instead write only one:
 
     use Modern::Perl;
 
-For now, this only enables the L<strict> and L<warnings> pragmas, as well as
-all of the features available in Perl 5.10.  It also enables C3 method
-resolution order; see C<perldoc mro> for an explanation.  In the future, it
-will include additional CPAN modules which have proven useful and stable.
+This enables the L<strict> and L<warnings> pragmas, as well as all of the
+features available in Perl 5.10. It also enables C3 method resolution order as
+documented in C<perldoc mro> and loads L<IO::File> and L<IO::Handle> so that
+you may call methods on filehandles. In the future, it may include additional
+core modules and pragmas.
+
+Because so much of this module's behavior uses lexically scoped pragmas, you
+may disable these pragmas within an inner scope with:
+
+    no Modern::Perl;
 
 See L<http://www.modernperlbooks.com/mt/2009/01/toward-a-modernperl.html> for
 more information, L<http://www.modernperlbooks.com/> for further discussion of
