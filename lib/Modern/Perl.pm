@@ -1,6 +1,6 @@
 package Modern::Perl;
 {
-  $Modern::Perl::VERSION = '1.20120106';
+  $Modern::Perl::VERSION = '1.20120119';
 }
 # ABSTRACT: enable all of the features of Modern Perl with one import
 
@@ -71,7 +71,7 @@ Modern::Perl - enable all of the features of Modern Perl with one import
 
 =head1 VERSION
 
-version 1.20120106
+version 1.20120119
 
 =head1 SYNOPSIS
 
@@ -168,8 +168,8 @@ L<http://search.cpan.org/dist/Modern-Perl/>
 Damian Conway (inspiration from L<Toolkit>), Florian Ragwitz
 (L<B::Hooks::Parser>, so I didn't have to write it myself), chocolateboy (for
 suggesting that I don't even need L<B::Hooks::Parser>), Damien Learns Perl,
-David Moreno, Evan Carroll, and Elliot Shank for reporting bugs and requesting
-features.
+David Moreno, Evan Carroll, Elliot Shank, Andreas König, and Father
+Chrysostomos for reporting bugs, filing patches, and requesting features.
 
 =head1 COPYRIGHT & LICENSE
 
