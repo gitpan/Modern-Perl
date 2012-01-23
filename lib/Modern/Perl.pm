@@ -1,6 +1,6 @@
 package Modern::Perl;
 {
-  $Modern::Perl::VERSION = '1.20120119';
+  $Modern::Perl::VERSION = '1.20120123';
 }
 # ABSTRACT: enable all of the features of Modern Perl with one import
 
@@ -16,10 +16,25 @@ use feature ();
 use IO::File   ();
 use IO::Handle ();
 
+our $VERSION;
+
+my $wanted_date;
+sub VERSION
+{
+    my ($self, $version) = @_;
+    return $VERSION if $version < 2009;
+
+    $wanted_date = $version if (caller(1))[3] =~ /::BEGIN/;
+    return 2012;
+}
+
 sub import
 {
     my ($class, $date) = @_;
+    $date = $wanted_date unless defined $date;
+
     my $feature_tag    = validate_date( $date );
+    undef $wanted_date;
 
     warnings->import();
     strict->import();
@@ -71,7 +86,7 @@ Modern::Perl - enable all of the features of Modern Perl with one import
 
 =head1 VERSION
 
-version 1.20120119
+version 1.20120123
 
 =head1 SYNOPSIS
 
@@ -103,16 +118,16 @@ Modern Perl tutorial.
 For forward compatibility, I recommend you specify a I<year> as the single
 optional import tag. For example:
 
-    use Modern::Perl 2009;
-    use Modern::Perl 2010;
+    use Modern::Perl '2009';
+    use Modern::Perl '2010';
 
 ... both enable 5.10 features, while:
 
-    use Modern::Perl 2011;
+    use Modern::Perl '2011';
 
 ... enables 5.12 features and:
 
-    use Modern::Perl 2012;
+    use Modern::Perl '2012';
 
 ... enables 5.14 features. Obviously you cannot use 5.14 features on earlier
 versions, and Perl will throw the appropriate exception if you try.
