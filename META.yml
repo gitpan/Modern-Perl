@@ -27,4 +27,4 @@ requires:
 resources:
   homepage: https://github.com/chromatic/Modern-Perl
   repository: https://github.com/chromatic/Modern-Perl.git
-version: 1.20120126
+version: 1.20120130
