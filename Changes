@@ -1,5 +1,8 @@
 Revision history for Modern::Perl
 
+1.20120521 2012-05-21 15:58:59 America/Los_Angeles
+    - added Perl 5.16 support
+
 1.20120130 2012-01-30 11:38:08 America/Los_Angeles
     - fixed t/year_imports.t for 5.10 (ANDK and sprout again)
 
