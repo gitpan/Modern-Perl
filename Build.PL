@@ -19,7 +19,7 @@ my %module_build_args = (
     "chromatic"
   ],
   "dist_name" => "Modern-Perl",
-  "dist_version" => "1.20120521",
+  "dist_version" => "1.20121103",
   "license" => "perl",
   "module_name" => "Modern::Perl",
   "recommends" => {},

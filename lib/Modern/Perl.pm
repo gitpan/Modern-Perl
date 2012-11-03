@@ -1,6 +1,6 @@
 package Modern::Perl;
 {
-  $Modern::Perl::VERSION = '1.20120521';
+  $Modern::Perl::VERSION = '1.20121103';
 }
 # ABSTRACT: enable all of the features of Modern Perl with one import
 
@@ -22,7 +22,9 @@ my $wanted_date;
 sub VERSION
 {
     my ($self, $version) = @_;
-    return $VERSION if $version < 2009;
+
+    return $VERSION unless defined $version;
+    return $VERSION if             $version < 2009;
 
     $wanted_date = $version if (caller(1))[3] =~ /::BEGIN/;
     return 2012;
@@ -79,6 +81,7 @@ sub validate_date
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -87,7 +90,7 @@ Modern::Perl - enable all of the features of Modern Perl with one import
 
 =head1 VERSION
 
-version 1.20120521
+version 1.20121103
 
 =head1 SYNOPSIS
 
@@ -142,6 +145,8 @@ support for 5.10 and will complain (once per process) if you use a year too
 old. As of May 2012, Perl 5.12 is unsupported by the Perl 5 Porters, so please
 consider upgrading.
 
+=encoding utf8
+
 =head1 AUTHOR
 
 chromatic, C<< <chromatic at wgz.org> >>
@@ -189,8 +194,9 @@ L<http://search.cpan.org/dist/Modern-Perl/>
 Damian Conway (inspiration from L<Toolkit>), Florian Ragwitz
 (L<B::Hooks::Parser>, so I didn't have to write it myself), chocolateboy (for
 suggesting that I don't even need L<B::Hooks::Parser>), Damien Learns Perl,
-David Moreno, Evan Carroll, Elliot Shank, Andreas König, and Father
-Chrysostomos for reporting bugs, filing patches, and requesting features.
+David Moreno, Evan Carroll, Elliot Shank, Andreas König, Father Chrysostomos,
+and Norbert E. Grüner for reporting bugs, filing patches, and requesting
+features.
 
 =head1 COPYRIGHT & LICENSE
 
@@ -211,4 +217,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

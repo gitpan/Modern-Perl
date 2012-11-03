@@ -1,5 +1,9 @@
 Revision history for Modern::Perl
 
+1.20121103 2012-11-03 13:30:26 America/Los_Angeles
+    - fixed VERSION( undef ) (Peter Vereshagin, RT #80304)
+    - fixed POD encoding error (Norbert E. Grüner, RT #80468)
+
 1.20120521 2012-05-21 15:58:59 America/Los_Angeles
     - added Perl 5.16 support
 
