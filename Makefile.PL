@@ -12,8 +12,7 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "enable all of the features of Modern Perl with one import",
   "AUTHOR" => "chromatic",
   "BUILD_REQUIRES" => {
-    "Module::Build" => "0.3601",
-    "Test::More" => "0.98"
+    "Module::Build" => "0.3601"
   },
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30",
@@ -26,30 +25,39 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "IO::File" => 0,
     "IO::Handle" => 0,
-    "autodie" => "2.10",
+    "autodie" => "2.22",
     "feature" => 0,
     "mro" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.20121103",
+  "TEST_REQUIRES" => {
+    "Test::More" => "0.98"
+  },
+  "VERSION" => "1.20140107",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
-  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM};
-  for my $mod ( keys %$br ) {
-    if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
-    }
-    else {
-      $pp->{$mod} = $br->{$mod};
-    }
-  }
+my %FallbackPrereqs = (
+  "IO::File" => 0,
+  "IO::Handle" => 0,
+  "Module::Build" => "0.3601",
+  "Test::More" => "0.98",
+  "autodie" => "2.22",
+  "feature" => 0,
+  "mro" => 0,
+  "strict" => 0,
+  "warnings" => 0
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
 }
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
